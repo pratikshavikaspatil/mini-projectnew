@@ -18,7 +18,8 @@ resource "azurerm_subnet" "app_network_subnets" {
 
 #Network Security Group
 resource "azurerm_network_security_group" "app_nsg" {
-  for_each = {for subnet in var.subnet_details: subnet.subnet_name=>subnet if length(subnet.network_security_group_rules)!=0}
+  for_each = {for subnet in var.subnet_details: subnet.subnet_name => subnet if length(lookup(subnet, "network_security_group_rules", [])) != 0}
+
   name                = "${each.key}_nsg"
   location            = each.value.location
   resource_group_name = each.value.resource_group_name
@@ -39,7 +40,8 @@ resource "azurerm_network_security_group" "app_nsg" {
 }
 }
   resource "azurerm_subnet_network_security_group_association" "subnet_appnsg" {
-   for_each = {for subnet in var.subnet_details: subnet.subnet_name=>subnet if length(subnet.network_security_group_rules)!=0}
+   for_each = {for subnet in var.subnet_details: subnet.subnet_name => subnet if length(lookup(subnet, "network_security_group_rules", [])) != 0}
+
   subnet_id                 = azurerm_subnet.app_network_subnets[each.key].id
   network_security_group_id = azurerm_network_security_group.app_nsg[each.key].id
 }   

@@ -27,5 +27,8 @@ override.tf.json
 *.bak
 *.swp
 *.swo
-providers.tf 
+# Ignore Terraform provider configuration
+providers.tf
+
+ 
  

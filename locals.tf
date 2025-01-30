@@ -24,7 +24,7 @@ for subnet_key,subnets in virtualnetwork.subnets :
 
   network_security_group_details=(flatten([
     for virtualnetwork_key, virtualnetwork in var.environment :[
-    for subnet_key, subnet in virtualnetwork.subnets :
+    for subnet_key, subnets in virtualnetwork.subnets :
     {
       virtual_network_name=virtualnetwork_key
       subnet_name=subnet_key
@@ -34,3 +34,4 @@ for subnet_key,subnets in virtualnetwork.subnets :
     }]
     ]))
 }
+
