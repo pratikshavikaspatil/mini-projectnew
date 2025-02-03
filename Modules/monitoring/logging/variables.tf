@@ -4,3 +4,4 @@ variable "log_analytics_workspaces" {
        resource_group_name=string
      }))
    }
+   
